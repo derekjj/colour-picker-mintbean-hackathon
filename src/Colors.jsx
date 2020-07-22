@@ -5,11 +5,7 @@ export default function Colors({ hex }) {
   const [copied, changeCopied] = useState(false);
   const [value] = useState(hex);
 
-  // onClick = ({target: {innerHTML}}) => {
-  //   console.log(`Clicked on "${innerHTML}"!`); // eslint-disable-line
-  // };
-
-  const copy = () => {
+  var copy = () => {
     changeCopied(true);
     console.log("Copied: ", copied);
   };
@@ -17,7 +13,10 @@ export default function Colors({ hex }) {
   return (
     <div style={{ backgroundColor: hex }} className="color">
       <CopyToClipboard text={value} onCopy={copy}>
-        <div className="hex-value">{hex}</div>
+        <div className="hex-value">
+          {hex}
+          <div text-variant="red">{copied ? "Copied" : null}</div>
+        </div>
       </CopyToClipboard>
     </div>
   );

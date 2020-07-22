@@ -1,8 +1,7 @@
 import React from "react";
-import { Container, Row, Navbar, Nav, NavDropdown, Col } from "react-bootstrap";
+import { Container, Navbar, Nav, NavDropdown, Col } from "react-bootstrap";
 
 export default function NavBar({
-  changeHex,
   changeVariation,
   changeSetting,
   changeSettingValue,
