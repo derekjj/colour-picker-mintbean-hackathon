@@ -1,47 +1,35 @@
 import React from "react";
-import { Navbar, Form, Nav, FormControl, NavDropdown } from "react-bootstrap";
+import { Container, Row, Navbar, Nav, NavDropdown, Col } from "react-bootstrap";
 
-const tinycolor = require("tinycolor2");
-
-export default function Settings({
+export default function NavBar({
   changeHex,
   changeVariation,
   changeSetting,
   changeSettingValue,
+  settingValue,
 }) {
-  const handleHexChange = e => {
-    e.preventDefault();
-    changeHex(e.target.value);
-  };
-
-  const handleVariationChange = variation => {
+  const handleVariationChange = (variation) => {
     changeVariation(variation);
   };
 
-  const changeSettings = e => {
+  const changeSettings = (e) => {
     const setting = e.target.getAttribute("value");
     changeSetting(setting);
   };
 
-  const setRandom = () => {
-    const randomColor = tinycolor.random().toHexString();
-    changeHex(randomColor);
-  };
-
-  const handleSettingValueChange = e => {
+  const handleSettingValueChange = (e) => {
     changeSettingValue(e);
   };
 
   return (
     <div>
-      <Navbar expand="lg" bg="dark" variant="dark">
-        <Nav className="mr-auto">
+      <Navbar expand="xl" bg="dark" variant="dark" className="text-white">
+        <Navbar.Brand>Color Palette Generator</Navbar.Brand>
+        <Nav className="ml-auto">
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Navbar.Brand>Color Palette Generator</Navbar.Brand>
             <NavDropdown
-              onSelect={e => handleVariationChange(e)}
+              onSelect={(e) => handleVariationChange(e)}
               title="Variation"
               id="variation"
             >
@@ -66,52 +54,66 @@ export default function Settings({
               <NavDropdown.Item eventKey="tetrad">Tetrad</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown.Divider />
-
+            <Container>
+              <Col>Brightness</Col>
+              <Col>
+                <Nav.Link value={"brighten"} onClick={(e) => changeSettings(e)} className="m-1">
+                  +
+                </Nav.Link>
+                <Nav.Link value={"darken"} onClick={(e) => changeSettings(e)} className="m-1">
+                  -
+                </Nav.Link>
+              </Col>
+            </Container>
+            <Container>
+              <Col>Staturation</Col>
+              <Col>
+                <Nav.Link value={"saturate"} onClick={(e) => changeSettings(e)} className="m-1">
+                  +
+                </Nav.Link>
+                <Nav.Link
+                  value={"desaturate"}
+                  onClick={(e) => changeSettings(e)}
+                  className="m-1"
+                >
+                  -
+                </Nav.Link>
+              </Col>
+            </Container>
+            <Nav.Link value={"greyscale"} onClick={(e) => changeSettings(e)}>
+              Greyscale
+            </Nav.Link>
             <Nav.Link
               value={"lighten"}
               eventKey={"lighten"}
-              onClick={e => changeSettings(e)}
+              onClick={(e) => changeSettings(e)}
             >
               Lighten
             </Nav.Link>
-            <Nav.Link value={"brighten"} onClick={e => changeSettings(e)}>
-              Brighten
-            </Nav.Link>
-            <Nav.Link value={"darken"} onClick={e => changeSettings(e)}>
-              Darken
-            </Nav.Link>
-            <Nav.Link value={"desaturate"} onClick={e => changeSettings(e)}>
-              Desaturate
-            </Nav.Link>
-            <Nav.Link value={"saturate"} onClick={e => changeSettings(e)}>
-              Saturate
-            </Nav.Link>
-            <Nav.Link value={"greyscale"} onClick={e => changeSettings(e)}>
-              Greyscale
-            </Nav.Link>
-            <NavDropdown
-              onSelect={e => handleSettingValueChange(e)}
-              title="Change Value (%)"
-            >
-              <NavDropdown.Item eventKey="2">10</NavDropdown.Item>
-              <NavDropdown.Item eventKey="4">20</NavDropdown.Item>
-              <NavDropdown.Item eventKey="6">30</NavDropdown.Item>
-              <NavDropdown.Item eventKey="8">40</NavDropdown.Item>
-              <NavDropdown.Item eventKey="12">50</NavDropdown.Item>
-              <NavDropdown.Item eventKey="16">60</NavDropdown.Item>
-              <NavDropdown.Item eventKey="20">70</NavDropdown.Item>
-              <NavDropdown.Item eventKey="30">80</NavDropdown.Item>
-              <NavDropdown.Item eventKey="40">90</NavDropdown.Item>
-              <NavDropdown.Item eventKey="50">100</NavDropdown.Item>
-            </NavDropdown>
+            <Container>
+              <Col sm={6} className="text-right pt-2">
+                {settingValue}
+              </Col>
+              <Col sm={6} className="text-left">
+                <NavDropdown
+                  onSelect={(e) => handleSettingValueChange(e)}
+                  title="%"
+                >
+                  <NavDropdown.Item eventKey="10">10</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="20">20</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="30">30</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="40">40</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="50">50</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="60">60</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="70">70</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="80">80</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="90">90</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="100">100</NavDropdown.Item>
+                </NavDropdown>
+              </Col>
+            </Container>
           </Navbar.Collapse>
         </Nav>
-        <Nav.Link id="random" onClick={() => setRandom()}>
-          Random
-        </Nav.Link>
-        <Form onChange={e => handleHexChange(e)} inline>
-          <FormControl type="text" placeholder="#77d36a" className="mr-sm-2" />
-        </Form>
       </Navbar>
     </div>
   );

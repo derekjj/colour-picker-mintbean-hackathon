@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
 import Palette from "./Palette";
-import Settings from "./Navbar";
+import NavBar from "./Navbar";
+import Footer from "./Footer";
 
 function App() {
   const [hex, changeHex] = useState("#5f42ad");
@@ -11,11 +12,12 @@ function App() {
 
   return (
     <div className="App">
-      <Settings
+      <NavBar
         changeSetting={changeSetting}
         changeVariation={changeVariation}
         changeHex={changeHex}
         changeSettingValue={changeSettingValue}
+        settingValue={settingValue}
       />
       <Palette
         settingValue={settingValue}
@@ -23,6 +25,7 @@ function App() {
         variation={variation}
         hex={hex}
       />
+      <Footer hex={hex} changeHex={changeHex} />
     </div>
   );
 }
