@@ -12,12 +12,14 @@ export default function Colors({ hex }) {
 
   return (
     <div style={{ backgroundColor: hex }} className="color">
-      <CopyToClipboard text={value} onCopy={copy}>
-        <div className="hex-value">
-          {hex}
-          <div text-variant="red">{copied ? "Copied" : null}</div>
-        </div>
-      </CopyToClipboard>
+      <div className="hex-value">
+        <CopyToClipboard text={value} onCopy={copy}>
+          <div>
+            {hex}
+            <div text-variant="red">{copied ? "Copied" : null}</div>
+          </div>
+        </CopyToClipboard>
+      </div>
     </div>
   );
 }
